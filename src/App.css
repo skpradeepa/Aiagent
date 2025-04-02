@@ -1,0 +1,79 @@
+/* App.css */
+.journey-container {
+  padding: 20px;
+}
+
+.journey-path {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.top-section {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.avatar-left {
+  position: absolute;
+  left: -100px;
+}
+
+.avatar-right {
+  position: absolute;
+  right: -100px;
+}
+
+.module-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.lesson-card {
+  background: #1E3A8A;
+  color: #fff;
+  width: 60%;
+}
+
+.pathway {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.module-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.module-card {
+  background: #f5f5f5;
+  width: 300px;
+}
+
+.lock-icon {
+  color: #1E3A8A;
+}
+
+@media (min-width: 768px) {
+  .journey-path {
+    align-items: flex-start;
+  }
+
+  .module-wrapper {
+    flex-direction: row;
+  }
+}
