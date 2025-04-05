@@ -9,15 +9,16 @@ import {
   DialogTitle,
   DialogContent,
   Slide,
-  Grid,
-  Checkbox,
   IconButton,
-  Drawer,
   List,
   ListItem,
   ListItemText,
+  useMediaQuery
 } from "@mui/material";
+import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
 import image1 from "../Resource/cubeailogo.jpeg";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -25,8 +26,17 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 });
 
 const Header = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [openPopup, setOpenPopup] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const isMobile = useMediaQuery("(max-width:768px)");
+const isActive = (item) => {
+  if (item === "Computer Vision" && location.pathname === "/Aisection2") return true;
+  if (item === "About us" && location.pathname === "/") return true;
+  // Add more conditions if needed
+  return false;
+};
 
   const toggleDrawer = (open) => () => {
     setMobileOpen(open);
@@ -39,130 +49,178 @@ const Header = () => {
     }
   };
 
-  const servicesData = [
-    { name: "Blockchain", subcategories: ["Blockchain", "Smart Contracts", "Cryptocurrency", "NFT", "Web3", "DeFi", "Metaverse"] },
-    { name: "AI & ML", subcategories: [] },
-    { name: "Generative AI", subcategories: [] },
-    { name: "Software Development", subcategories: [] },
-    { name: "IOT", subcategories: [] },
-    { name: "Token", subcategories: [] },
+  // ✨ Popup content for each item
+  const contentMap = {
+    "About us": "We are a leading AI company offering innovative solutions across multiple industries.",
+    "Services": "We provide services such as AI development, custom software, and cloud integration.",
+    "Hire Developers": "Hire skilled developers in AI, web development, mobile apps, and more.",
+    "Industries": "We serve industries like healthcare, finance, manufacturing, and logistics.",
+    "Case Studies": "Explore our success stories and case studies from real-world client projects.",
+    "Blog": "Check out the latest insights, news, and updates from our tech team."
+  };
+
+  const menuItems = [
+    "About us",
+    "Services",
+    "Hire Developers",
+    "AI/ML",
+    "Computer Vision",
+    "Industries",
+    "Case Studies",
+    "Blog"
   ];
 
   return (
     <>
-      <AppBar
-        position="fixed"
-        color="transparent"
-        elevation={0}
-        sx={{
-          top: 0,
-          left: 0,
-          width: "100%",
-          backgroundColor: "white",
-          padding: "10px",
-          "@media (max-width: 768px)": { padding: "5px" },
-        }}
-      >
-        <Toolbar sx={{ display: "flex", justifyContent: "space-between", px: 3, py: 1 }}>
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <img src={image1} alt="Logo" style={{ height: 80, width: "auto", cursor: "pointer" }} />
+      <AppBar position="fixed" color="transparent" elevation={0} sx={{ backgroundColor: "white", padding: "10px" }}>
+      <Toolbar
+  sx={{
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    px: { xs: 1, sm: 3 },
+    py: 1,
+  }}
+>
+<Box
+  sx={{
+    display: "flex",
+    alignItems: "center",
+    flexShrink: 0,
+    justifyContent: "flex-start",
+  }}
+>
+  <img
+    src={image1}
+    alt="Logo"
+    style={{ height: 60, width: "auto", cursor: "pointer", padding: "1px" }}
+  />
+</Box>
+
+
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" }, justifyContent: "center" }}>
+            <Button variant="outlined" sx={{ borderColor: "blue", color: "black", fontWeight: "600", fontSize: "1rem", px: 2, py: 0.5 }} onClick={scrollToExperts}>
+              Inquire
+            </Button>
           </Box>
 
-          {/* Desktop Navigation */}
-          <Box
-            sx={{
-              display: { xs: "none", md: "flex" },
-              alignItems: "center",
-              gap: 3,
-            }}
-          >
-            {["About us", "Services", "Hire Developers", "Industries", "Case Studies", "Blog"].map((item, index) => (
+          <Box sx={{ display: { xs: "none", md: "flex" }, alignItems: "center", gap: 3 }}>
+            {menuItems.map((item, index) => (
               <Typography
                 key={index}
-                onClick={() => setOpenPopup(item)}
+                onClick={() => {
+                  if (item === "AI/ML") {
+                    navigate("/"); // Navigate to the page
+                    setOpenPopup(null); // Ensure no popups open
+                    setMobileOpen(false);
+                    return; // Stop further execution
+                  }
+                  
+                                  
+                  if (item === "AI/ML") {
+                    const section = document.getElementById("AI");
+                    if (section) section.scrollIntoView({ behavior: "smooth" });
+                  } else if (item === "Computer Vision") {
+                    const section = document.getElementById("CV");
+                    if (section) section.scrollIntoView({ behavior: "smooth" });
+                    navigate("/Aisection2");
+                  } else {
+                    setOpenPopup(item);
+                  }
+                }}
                 sx={{
-                  color: "#0D0D0D",
+                  color:
+                    (item === "Computer Vision" && location.pathname === "/Aisection2") ||
+                    (item === "AI/ML" && location.pathname === "/")
+                      ? "darkblue"
+                      : item === "AI/ML" || item === "Computer Vision"
+                      ? "blue"
+                      : "#0D0D0D",
+                  fontWeight: "bold",
                   cursor: "pointer",
-                  fontWeight: "600",
                   fontSize: "1.3rem",
-                  "&:hover": { color: "blue" },
+                  "&:hover": { color: "darkblue" },
+                  borderBottom:
+                    (item === "Computer Vision" && location.pathname === "/Aisection2") ||
+                    (item === "AI/ML" && location.pathname === "/")
+                      ? "2px solid darkblue"
+                      : "none"
                 }}
               >
                 {item}
               </Typography>
             ))}
+            <Button variant="outlined" sx={{ borderColor: "blue", color: "black", fontWeight: "600", fontSize: "1.5rem", px: 3, py: 1 }} onClick={scrollToExperts}>
+              Inquire
+            </Button>
           </Box>
 
-          {/* Mobile Menu Button */}
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ display: { xs: "block", md: "none" } }}
-            onClick={toggleDrawer(true)}
-          >
+          <IconButton edge="end" color="inherit" sx={{ display: { xs: "block", md: "none" } }} onClick={toggleDrawer(true)}>
             <MenuIcon sx={{ color: "black" }} />
           </IconButton>
-
-          {/* Inquire Button */}
-          <Button
-            variant="outlined"
-            sx={{
-              borderColor: "blue",
-              color: "black",
-              fontWeight: "600",
-              fontSize: "1.5rem",
-              px: 3,
-              py: 1,
-              "@media (max-width: 768px)": {
-                fontSize: "1rem",
-                px: 2,
-                py: 0.5,
-              },
-            }}
-            onClick={scrollToExperts}
-          >
-            Inquire
-          </Button>
         </Toolbar>
       </AppBar>
 
-      {/* Mobile Drawer Menu */}
-      <Drawer anchor="right" open={mobileOpen} onClose={toggleDrawer(false)}>
-        <List sx={{ width: 250, padding: 2 }}>
-          {["About us", "Services", "Hire Developers", "Industries", "Case Studies", "Blog"].map((item, index) => (
-            <ListItem button key={index} onClick={() => { setOpenPopup(item); setMobileOpen(false); }}>
-              <ListItemText primary={item} />
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
-
-      {/* Pop-up Dialog */}
-      <Dialog open={Boolean(openPopup)} onClose={() => setOpenPopup(null)} fullWidth maxWidth="md" TransitionComponent={Transition}>
-        <DialogTitle sx={{ fontSize: "1.8rem", fontWeight: "600" }}>{openPopup}</DialogTitle>
+      {/* Mobile Drawer */}
+      <Dialog 
+        open={mobileOpen} 
+        onClose={toggleDrawer(false)} 
+        TransitionComponent={Transition} 
+        fullWidth 
+        maxWidth="sm"
+        sx={{ "& .MuiDialog-paper": { maxHeight: "100vh" } }}
+      >
+        <DialogTitle sx={{ display: "flex", justifyContent: "flex-end", padding: "10px" }}>
+          <IconButton onClick={toggleDrawer(false)} sx={{ color: "black" }}>
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
         <DialogContent>
-          {openPopup === "Services" ? (
-            <Grid container spacing={2}>
-              <Grid item xs={12} md={6} sx={{ backgroundColor: "#FFF3F3", padding: 2 }}>
-                {servicesData.map((service, index) => (
-                  <Box key={index} sx={{ display: "flex", alignItems: "center", gap: 1, my: 1 }}>
-                    <Typography sx={{ fontSize: "1.2rem", fontWeight: "600" }}>{service.name}</Typography>
-                    <Checkbox />
-                  </Box>
-                ))}
-              </Grid>
-              <Grid item xs={12} md={6} sx={{ backgroundColor: "#FFF3F3", padding: 2 }}>
-                {servicesData[0].subcategories.map((subcategory, index) => (
-                  <Typography key={index} sx={{ fontSize: "1.2rem", fontWeight: "500", my: 1 }}>
-                    {subcategory}
-                  </Typography>
-                ))}
-              </Grid>
-            </Grid>
-          ) : (
-            <Typography>This is the pop-up content for {openPopup}. You can customize this section.</Typography>
-          )}
+          <List>
+            {menuItems.map((item, index) => (
+              <ListItem
+                button
+                key={index}
+                onClick={() => {
+               if (item === "AI/ML") {
+  navigate("/"); // Navigate normally
+  setOpenPopup(null); // Close any open popups
+  setMobileOpen(false);
+  return; // Stop further execution
+}
+
+                  if (item === "Computer Vision") {
+                    navigate("/AISection2");
+                    setMobileOpen(false);
+                  } else if (item === "AI/ML") {
+                    navigate("/AIServiceCards");
+                    setMobileOpen(false);
+                  } else {
+                    setOpenPopup(item);
+                    setMobileOpen(false);
+                  }
+                  
+                }}
+              >
+                <ListItemText primary={item} sx={{ fontSize: "1.2rem", fontWeight: "500" }} />
+              </ListItem>
+            ))}
+          </List>
+        </DialogContent>
+      </Dialog>
+
+      {/* Pop-up Content Dialog */}
+      <Dialog open={Boolean(openPopup)} onClose={() => setOpenPopup(null)} fullWidth maxWidth="md" TransitionComponent={Transition}>
+        <DialogTitle sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "16px" }}>
+          <Typography sx={{ fontSize: "1.8rem", fontWeight: "600" }}>{openPopup}</Typography>
+          <IconButton onClick={() => setOpenPopup(null)} sx={{ color: "black" }}>
+            <CloseIcon />
+          </IconButton>
+        </DialogTitle>
+        <DialogContent>
+          <Typography sx={{ fontSize: "1.1rem", lineHeight: 1.7 }}>
+            {contentMap[openPopup] || `This is the pop-up content for ${openPopup}. You can customize this section.`}
+          </Typography>
         </DialogContent>
       </Dialog>
     </>

@@ -116,7 +116,27 @@ const services = [
 
 const AIServiceCards = () => {
   return (
-    <div className="containers">
+    <div className="containers" id="AI"> 
+       <div style={{ textAlign: 'center', padding: '2rem 1rem' }}>
+        <h2 style={{ 
+          fontSize: '2.5rem', 
+          fontWeight: 'bold', 
+          color: '#2c3e50', 
+          marginBottom: '1rem' 
+        }}>
+          Artificial Intelligence / Machine Learning
+        </h2>
+        <p style={{ 
+          fontSize: '1.1rem', 
+          color: '#555', 
+          maxWidth: '800px', 
+          margin: '0 auto', 
+          lineHeight: '1.6' 
+        }}>
+          Explore a range of intelligent agents powered by AI/ML, designed to automate, optimize, and enhance your business operations across various industries.
+        </p>
+      </div>
+
     <div className="grid-containers" >
       {services.map((service, index) => (
         <div key={index} className="service-cards">
