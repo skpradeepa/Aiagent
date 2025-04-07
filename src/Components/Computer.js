@@ -98,7 +98,8 @@ const Computervision = () => {
           margin: '0 auto', 
           lineHeight: '1.6' 
         }}>
-           A mobile-based computer vision application to automatically read and log data from water and energy meters, reducing manual entry errors and improving efficiency.
+       Computer Vision is a branch of AI that enables computers to see, interpret, and understand images and videos, just like humans.
+       It helps machines identify, track, and analyze objects or patterns in visual data.
         </p>
       </div>
     <div className="grid-containers" >
