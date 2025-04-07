@@ -52,7 +52,7 @@ const services2 = [
   },
   {
     image:img6,
-    title: ". Person Activity Monitoring",
+    title: "Person Activity Monitoring",
     description:
       "Real-time human activity detection system to monitor behavior, detect anomalies, and ensure productivity or safety compliance in various environments.",
   },
