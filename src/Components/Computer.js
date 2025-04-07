@@ -58,7 +58,7 @@ const services2 = [
   },
   {
     image:img7,
-    title: ". PPE Monitoring for Worker Safety",
+    title: "PPE Monitoring for Worker Safety",
     description:
       "An AI-powered solution to detect if individuals are wearing required Personal Protective Equipment (PPE) like helmets, gloves, vests, and masks at work sites.",
       
