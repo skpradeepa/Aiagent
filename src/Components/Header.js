@@ -30,13 +30,13 @@ const Header = () => {
   const location = useLocation();
   const [openPopup, setOpenPopup] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const isMobile = useMediaQuery("(max-width:768px)");
-const isActive = (item) => {
-  if (item === "Computer Vision" && location.pathname === "/Aisection2") return true;
-  if (item === "About us" && location.pathname === "/") return true;
-  // Add more conditions if needed
-  return false;
-};
+  // const isMobile = useMediaQuery("(max-width:768px)");
+// const isActive = (item) => {
+//   if (item === "Computer Vision" && location.pathname === "/Aisection2") return true;
+//   if (item === "About us" && location.pathname === "/") return true;
+//   // Add more conditions if needed
+//   return false;
+// };
 
   const toggleDrawer = (open) => () => {
     setMobileOpen(open);
