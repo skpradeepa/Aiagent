@@ -48,6 +48,7 @@ const Header = () => {
       section.scrollIntoView({ behavior: "smooth" });
     }
   };
+  
 
   // ✨ Popup content for each item
   const contentMap = {
